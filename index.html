@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bee Haus Publishing | Yusuf Blanton</title>
+    <!-- Fonts: GOTHIC HEADINGS + CLEAN BODY -->
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           GLOBAL RESET & GOTHIC NOIR VARIABLES
+           ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Palette: Void Black, Bruised Red, Bone White */
+            --bg-dark-void: #050505; 
+            --bg-charcoal: #111111; 
+            --text-bone: #e0e0e0; 
+            --text-muted: #8e8a9d; 
+            --accent-crimson: #8b0000; 
+            --highlight-neon-red: #ff1a1a; 
+            
+            /* Fonts */
+            --font-gothic: 'IM Fell English SC', serif;
+            --font-clean: 'Inter', sans-serif;
+            
+            /* Spacing */
+            --site-padding: 5%;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark-void);
+            color: var(--text-bone);
+            font-family: var(--font-clean);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Gothic Heading Style */
+        h1, h2, h3, .logo {
+            font-family: var(--font-gothic);
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* =========================================
+           NAVIGATION (Minimal & Functional)
+           ========================================= */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem var(--site-padding);
+            background-color: var(--bg-charcoal);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #222;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            color: var(--text-bone);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-bone);
+            text-decoration: none;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--highlight-neon-red);
+        }
+
+        /* DROPDOWN LOGIC (Fixed & Styled) */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--bg-charcoal);
+            min-width: 180px;
+            top: 100%;
+            right: 0;
+            border: 1px solid #222;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+            z-index: 1001;
+            margin-top: 1rem;
+        }
+
+        .dropdown-content a {
+            color: var(--text-muted);
+            padding: 1rem;
+            text-transform: none;
+            font-family: var(--font-clean);
+            font-weight: 300;
+            font-size: 0.9rem;
+            letter-spacing: 0;
+            display: block;
+            border-bottom: 1px solid #222;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #1a1a1a;
+            color: var(--text-bone);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* =========================================
+           HERO: FEATURED AUTHOR
+           ========================================= */
+        .hero {
+            padding: 10rem var(--site-padding) 6rem;
+            background: radial-gradient(circle at 10% 10%, #1a0c10 0%, #050505 50%); 
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .author-name {
+            font-size: 3rem;
+            color: var(--accent-crimson);
+            border-left: 3px solid var(--accent-crimson);
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        .author-bio {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            max-width: 700px;
+        }
+
+        .author-bio strong {
+            color: var(--text-bone);
+            font-weight: 600;
+        }
+
+        /* =========================================
+           MAIN GRID: THE ARCHIVES
+           ========================================= */
+        .library {
+            padding: 6rem var(--site-padding);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            color: var(--text-muted);
+            margin-bottom: 4rem;
+            border-bottom: 1px solid #222;
+            padding-bottom: 1rem;
+        }
+
+        /* THE GRID */
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 4rem;
+        }
+
+        .book-card {
+            background-color: var(--bg-charcoal);
+            border: 1px solid #1a1a1a;
+            transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-crimson);
+            box-shadow: 0 15px 30px rgba(139, 0, 0, 0.2);
+        }
+
+        .book-cover {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .book-info {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .book-title {
+            font-size: 1.3rem;
+            color: var(--text-bone);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .blurb-container {
+            border-left: 1px solid #222;
+            padding-left: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .blurb-main {
+            font-style: italic;
+            color: var(--text-bone);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .blurb-expanded {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* STARK GOTHIC BUTTON */
+        .buy-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background-color: transparent;
+            color: var(--text-bone);
+            text-decoration: none;
+            border: 2px solid var(--text-bone);
+            text-transform: uppercase;
+            font-family: var(--font-clean);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .buy-btn:hover {
+            background-color: var(--text-bone);
+            color: var(--bg-dark-void);
+        }
+
+        /* =========================================
+           FOOTER
+           ========================================= */
+        footer {
+            text-align: center;
+            padding: 4rem var(--site-padding);
+            border-top: 1px solid #1a1a1a;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* =========================================
+           RESPONSIVE (Mobile First)
+           ========================================= */
+        @media (max-width: 900px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .author-name {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links {
+                gap: 1rem;
+            }
+            .logo {
+                font-size: 1.2rem;
+            }
+            .library {
+                padding: 4rem var(--site-padding);
+            }
+            .book-grid {
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <a href="#home" class="logo">BEE HAUS</a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#books">The Series</a></li>
+            <li class="dropdown">
+                <a href="#authors" class="dropbtn">Authors ▾</a>
+                <div class="dropdown-content">
+                    <a href="#home">Yusuf Blanton</a>
+                    <a href="#" style="font-style: italic; opacity: 0.5;">future authors</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- HERO: FEATURED AUTHOR -->
+    <header id="home" class="hero">
+        <div class="hero-container">
+            <h1 class="author-name">YUSUF BLANTON</h1>
+            <p class="author-bio">
+                Yusuf Blanton architects visceral neon-noir from the graveyard shifts of North Carolina. A former rapper who spit bars under the moniker J. Blanton—leaving behind underground cuts like "Turn It Up (ft. Dustie Nix)"—he ultimately traded the mic for a typewriter. A spiritual successor to the unapologetic grit of Charles Bukowski, Michelle Tea, and Henry Miller, he now constructs the dark, character-driven theater of the <strong>Freedom Boulevard</strong> universe.<br><br>
+                Beyond his neon-soaked thrillers, Blanton is the author of <em>The Agonizing Road to Self</em> and the underground classic <em>The Shards of Serenity</em> (Ishmael Press, 2015). He specializes in dissecting systemic rot, the brutal cost of survival, and the beautiful, bloody art of claiming your own crown in a godless city.
+            </p>
+        </div>
+    </header>
+
+    <!-- THE ARCHIVES: TRILOGY GRID -->
+    <section id="books" class="library">
+        <h2 class="section-title">THE ARCHIVES</h2>
+        
+        <div class="book-grid">
+            
+            <!-- BOOK 1 -->
+            <article class="book-card">
+                <img src="https://m.media-amazon.com/images/I/810-Y6PNNrL._SL1500_.jpg" alt="Freedom Boulevard Volume 1 Cover" class="book-cover">
+                <div class="book-info">
+                    <div class="text-block">
+                        <h3 class="book-title">Freedom Boulevard</h3>
+                        <div class="blurb-container">
+                            <p class="blurb-main">"Welcome to Cordova. The neon is cheap, the rent is weekly, and the shadows will eat you alive."</p>
+                            <p class="blurb-expanded">Andy Blackwell is a bisexual hip-hop artist running from Maryland to the neon lights of the West. Sakeenah Bailey is a bipolar, trans Muslima writer fleeing conservative Connecticut. Both drown in the legalized haze and criminal underworld of Cordova. Traded between kingpins and corporate weed factories, they are two sides of the same counterfeit coin. One will find a ladder out of the pit. The other will become a ghost in the machine.</p>
+                        </div>
+                    </div>
+                    <a href="https://www.amazon.com/gp/product/B0GSSR7FX4?ref_=dbs_m_mng_rwt_calw_tkin_0" target="_blank" class="buy-btn">Acquire on Amazon</a>
+                </div>
+            </article>
+
+            <!-- BOOK 2 -->
+            <article class="book-card">
+                <img src="https://m.media-amazon.com/images/I/7158plAvgLL._SL1264_.jpg" alt="Freedom Boulevard Volume 2 Cover: Sakeenah's Justice" class="book-cover">
+                <div class="book-info">
+                    <div class="text-block">
+                        <h3 class="book-title">Vol 2: Sakeenah's Justice</h3>
+                        <div class="blurb-container">
+                            <p class="blurb-main">"In the neon desert of Cordova, survival isn't a right. It’s a heist."</p>
+                            <p class="blurb-expanded">Excommunicated and cast into the gutters, Sakeenah Bailey lands in the crosshairs of Tony Vee, the drug-fueled King of Cordova's flesh empire. But Sakeenah is a poet with a switchblade. Armed with explosive journals and an alliance with a closeted federal deputy, she targets the city's glamorous drag pageant to burn the castle down, recruiting Justice Hawkins, Tony’s top-earning queen, to pull it off.</p>
+                        </div>
+                    </div>
+                    <a href="https://www.amazon.com/gp/product/B0GSZHRTDY?ref_=dbs_m_mng_rwt_calw_tkin_1" target="_blank" class="buy-btn">Acquire on Amazon</a>
+                </div>
+            </article>
+
+            <!-- BOOK 3 -->
+            <article class="book-card">
+                <img src="https://m.media-amazon.com/images/I/714-oZyuAGL._SL1264_.jpg" alt="Freedom Boulevard Volume 3 Cover" class="book-cover">
+                <div class="book-info">
+                    <div class="text-block">
+                        <h3 class="book-title">Freedom Boulevard 3</h3>
+                        <div class="blurb-container">
+                            <p class="blurb-main">"The only thing more dangerous than building a neon empire is hiring the absolute idiots required to run it."</p>
+                            <p class="blurb-expanded">Tony Vee is in a federal cage, and Vivienne "The Countess" Belfray's hostile takeover is suffocating under the spectacular incompetence of her own syndicate. Meanwhile, a fiercely repressed federal crusader wages a bloody, off-the-books war to scrub the Boulevard clean, catching a bruised, newly-out ex-deputy in the crossfire. A blisteringly cynical, pitch-black comedy of errors disguised as a neon-noir thriller.</p>
+                        </div>
+                    </div>
+                    <a href="https://www.amazon.com/gp/product/B0GZG1FV6J?ref_=dbs_m_mng_rwt_calw_tkin_2" target="_blank" class="buy-btn">Acquire on Amazon</a>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Bee Haus Publishing. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
