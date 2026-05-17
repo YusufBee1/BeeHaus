@@ -34,6 +34,40 @@ body {
     font-family: var(--font-clean);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    position: relative;
+}
+
+/* =========================================
+   CRT / VHS SHADER EFFECTS
+   ========================================= */
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    pointer-events: none; /* Lets you click through the overlay */
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    background-size: 100% 4px, 6px 100%;
+    opacity: 0.4;
+}
+
+/* KINETIC TYPOGRAPHY (NEON FLICKER) */
+.glitch {
+    animation: neon-flicker 4s infinite alternate;
+}
+
+@keyframes neon-flicker {
+    0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 5px var(--accent-crimson), 0 0 10px var(--highlight-neon-red);
+    }
+    20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+        opacity: 0.6;
+        text-shadow: none;
+    }
 }
 
 /* Gothic Heading Style */
@@ -251,7 +285,7 @@ h1, h2, h3, .logo, .brand-mark {
 .blurb-container {
     border-left: 2px solid #222;
     padding-left: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .blurb-main {
@@ -265,6 +299,31 @@ h1, h2, h3, .logo, .brand-mark {
     font-size: 0.9rem;
     color: var(--text-muted);
     font-weight: 300;
+}
+
+/* DAVINA PULL QUOTES */
+.davina-quote {
+    font-family: var(--font-gothic);
+    font-size: 0.95rem;
+    color: var(--text-bone);
+    border-left: 2px solid var(--accent-crimson);
+    padding-left: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    font-style: italic;
+    background: rgba(139, 0, 0, 0.05);
+    padding: 1rem;
+}
+
+.davina-quote strong {
+    display: block;
+    margin-top: 0.8rem;
+    font-size: 0.75rem;
+    color: var(--highlight-neon-red);
+    font-family: var(--font-clean);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-style: normal;
 }
 
 /* RESPONSIVE VIDEO EMBED */
@@ -326,12 +385,46 @@ h1, h2, h3, .logo, .brand-mark {
 }
 
 /* =========================================
+   RIGHTS & PERMISSIONS
+   ========================================= */
+.rights-section {
+    padding: 6rem var(--site-padding);
+    background: #080808;
+    border-top: 1px solid #1a1a1a;
+    text-align: center;
+}
+
+.rights-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.rights-text {
+    color: var(--text-muted);
+    font-size: 1rem;
+    font-weight: 300;
+    margin-bottom: 3rem;
+}
+
+.rights-btn {
+    max-width: 300px;
+    margin: 0 auto;
+    border-color: var(--accent-crimson);
+}
+
+.rights-btn:hover {
+    background-color: var(--accent-crimson);
+    color: var(--text-bone);
+    border-color: var(--accent-crimson);
+}
+
+/* =========================================
    FOOTER
    ========================================= */
 footer {
     text-align: center;
     padding: 4rem var(--site-padding);
-    background-color: #080808;
+    background-color: var(--bg-dark-void);
     border-top: 1px solid #1a1a1a;
     color: var(--text-muted);
     font-size: 0.85rem;
@@ -385,7 +478,7 @@ footer {
 
 @media (max-width: 768px) {
     .nav-links {
-        display: none; /* In a full build, add a hamburger toggle here */
+        display: none; 
     }
     
     .library {
