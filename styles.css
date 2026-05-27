@@ -8,7 +8,7 @@
 }
 
 :root {
-    /* Palette: Void Black, Charcoal, Bone White, Crimson */
+    /* Yusuf's Palette: Void Black, Charcoal, Bone White, Crimson */
     --bg-dark-void: #050505; 
     --bg-charcoal: #111111; 
     --text-bone: #ededed; 
@@ -16,6 +16,11 @@
     --accent-crimson: #8b0000; 
     --highlight-neon-red: #ff1a1a; 
     
+    /* Davina's Palette Extension: Cold Slate, Neon Pink, Neon Cyan */
+    --accent-neon-pink: #ff00ff;
+    --accent-neon-cyan: #00e5ff;
+    --bg-slate: #090e14;
+
     /* Fonts */
     --font-gothic: 'IM Fell English SC', serif;
     --font-clean: 'Inter', sans-serif;
@@ -47,7 +52,7 @@ body {
     width: 100vw;
     height: 100vh;
     z-index: 9999;
-    pointer-events: none; /* Lets you click through the overlay */
+    pointer-events: none;
     background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
                 linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
     background-size: 100% 4px, 6px 100%;
@@ -63,6 +68,27 @@ body {
     0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
         opacity: 1;
         text-shadow: 0 0 5px var(--accent-crimson), 0 0 10px var(--highlight-neon-red);
+    }
+    20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+        opacity: 0.6;
+        text-shadow: none;
+    }
+}
+
+/* DAVINA TYPOGRAPHY (CYAN/PINK FLICKER) */
+.glitch-davina {
+    animation: neon-flicker-davina 4s infinite alternate;
+    color: var(--text-bone);
+    border-left: 3px solid var(--accent-neon-pink);
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+    line-height: 1;
+}
+
+@keyframes neon-flicker-davina {
+    0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 5px var(--accent-neon-pink), 0 0 10px var(--accent-neon-cyan);
     }
     20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
         opacity: 0.6;
@@ -180,15 +206,23 @@ h1, h2, h3, .logo, .brand-mark {
 }
 
 /* =========================================
-   HERO: FEATURED AUTHOR
+   HERO: FEATURED AUTHORS
    ========================================= */
 .hero {
     min-height: 90vh;
     padding: 10rem var(--site-padding) 6rem;
-    background: radial-gradient(circle at 10% 10%, #1a0c10 0%, #050505 50%); 
-    border-bottom: 1px solid #1a1a1a;
     display: flex;
     align-items: center;
+}
+
+.yusuf-hero {
+    background: radial-gradient(circle at 10% 10%, #1a0c10 0%, #050505 50%); 
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.davina-hero {
+    background: radial-gradient(circle at 90% 10%, var(--bg-slate) 0%, #050505 50%);
+    border-bottom: 1px solid #1a1a1a;
 }
 
 .hero-container {
@@ -258,6 +292,15 @@ h1, h2, h3, .logo, .brand-mark {
     transform: translateY(-8px);
     border-color: var(--accent-crimson);
     box-shadow: 0 15px 40px rgba(139, 0, 0, 0.25);
+}
+
+.davina-card {
+    border: 1px solid #1a1a1a;
+}
+
+.davina-card:hover {
+    border-color: var(--accent-neon-pink);
+    box-shadow: 0 15px 40px rgba(255, 0, 255, 0.15);
 }
 
 .book-cover {
@@ -382,6 +425,12 @@ h1, h2, h3, .logo, .brand-mark {
     background-color: var(--text-bone);
     color: var(--bg-dark-void);
     border-color: var(--text-bone);
+}
+
+.davina-btn:hover {
+    background-color: var(--accent-neon-pink);
+    border-color: var(--accent-neon-pink);
+    color: var(--bg-dark-void);
 }
 
 /* =========================================
